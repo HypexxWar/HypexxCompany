@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HypexxWar</title>
+  <meta name="description" content="Descrição curta do site." />
+  <meta name="author" content="HypexxWar" />
+
+  <!-- Favicon (substitua o caminho quando tiver um) -->
+  <link rel="icon" href="" />
+
+  <!-- Open Graph / SEO básico -->
+  <meta property="og:title" content="HypexxWar" />
+  <meta property="og:description" content="Descrição curta do site." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="" />
+
+  <!-- Estilos base (puro CSS) -->
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --surface: #15171c;
+      --text: #e9eef4;
+      --muted: #a7b0bf;
+      --brand: #4f46e5;
+      --brand-2: #79fa00;
+      --border: #232733;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+    }
+    @media (prefers-color-scheme: light) {
+      :root { --bg:#f7f9fc; --surface:#ffffff; --text:#111827; --muted:#5b6576; --border:#e5e7eb; --shadow:0 10px 30px rgba(17,24,39,.08); }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(79,70,229,.15), transparent 60%),
+                  radial-gradient(1000px 700px at 90% 10%, rgba(34,211,238,.1), transparent 55%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* Layout utilitário */
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.1rem; border-radius: calc(var(--radius) - 6px);
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #fff; font-weight: 600; border: 0; cursor: pointer;
+      box-shadow: var(--shadow); transition: transform .12s ease, filter .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+
+    header { position: sticky; top: 0; backdrop-filter: saturate(160%) blur(8px); background: color-mix(in sRGB, var(--bg) 85%, transparent); border-bottom: 1px solid var(--border); z-index: 50; }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding: .8rem 0; }
+    .brand { display:flex; align-items:center; gap:.7rem; font-weight: 800; letter-spacing:.3px; }
+    .brand .logo { width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .menu { display:flex; gap: 1rem; align-items:center; }
+    .menu a { padding:.5rem .7rem; border-radius: 10px; color: var(--muted); }
+    .menu a:hover, .menu a[aria-current="page"] { color: var(--text); background: rgba(255,255,255,.06); }
+
+    .mobile-toggle { display:none; background: transparent; border: 1px solid var(--border); border-radius: 10px; padding: .5rem .7rem; color: var(--text); }
+
+    /* Hero */
+    .hero { padding: 5rem 0 3rem; }
+    .hero-grid { display:grid; grid-template-columns: 1.1fr 1fr; gap: 2rem; align-items: center; }
+    .kicker { color: var(--brand-2); font-weight:700; letter-spacing:.12em; text-transform:uppercase; font-size:.85rem; }
+    h1 { font-size: clamp(2rem, 4vw + 1rem, 3.4rem); line-height: 1.1; margin: .5rem 0 1rem; }
+    .lead { color: var(--muted); font-size: clamp(1rem, 1vw + .7rem, 1.2rem); margin-bottom: 1.5rem; }
+    .hero-card { background: linear-gradient(180deg, color-mix(in sRGB, var(--surface) 92%, transparent), color-mix(in sRGB, var(--surface) 98%, transparent)); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; box-shadow: var(--shadow); }
+    .hero-card media { display:block; }
+
+    /* Seções */
+    section { padding: 3.5rem 0; }
+    .section-title { font-size: clamp(1.4rem, 1.5vw + .8rem, 2rem); margin-bottom: 1.3rem; }
+    .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 .4rem; font-size: 1.1rem; }
+    .muted { color: var(--muted); }
+
+    /* CTA */
+    .cta { text-align:center; background: linear-gradient(140deg, color-mix(in sRGB, var(--brand) 8%, transparent), color-mix(in sRGB, var(--brand-2) 8%, transparent)); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cta .stack { display:flex; flex-direction:column; gap: .8rem; align-items:center; }
+
+    /* Footer */
+    footer { padding: 2rem 0; border-top: 1px solid var(--border); color: var(--muted); }
+    .footer-grid { display:grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; }
+    .footer-col a { color: var(--muted); }
+    .footer-col a:hover { color: var(--text); }
+
+    /* Responsivo */
+    @media (max-width: 880px) {
+      .hero { padding-top: 3rem; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .menu { display:none; }
+      .mobile-toggle { display:inline-flex; }
+      .menu.open { display:flex; flex-direction:column; position:absolute; left:0; right:0; top:60px; background: var(--surface); border-top: 1px solid var(--border); padding: .6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Navegação -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Principal">
+      <a href="#" class="brand" aria-label="Página inicial">
+      </span>
+        <span>HypexxCompany</span>
+      </a>
+      <button class="mobile-toggle" aria-label="Abrir menu" id="btnMenu">Menu</button>
+      <nav class="menu" id="menu">
+        <a href="#" class="btn ghost" id="toggleTheme" aria-label="Alternar tema">Tema</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="kicker">Hypexx</span>
+          <h1>HypexxWar, Quer jogar? Arrasta pra cima</h1>
+          <div style="display:flex; gap:.6rem; flex-wrap: wrap;">
+            <a class="btn" href="#recursos">Começar agora</a>
+            <a class="btn ghost" href="#sobre">Saiba mais</a>
+          </div> 
+      </div>
+    </section>
+
+    <!-- Recursos -->
+    <section id="recursos">
+      <div class="container">
+        <h2 class="section-title">INFORMAÇÕES DO SITE</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Jogos</h3>
+            <p class="muted">Valorant, NNRP E MUITO MAIS</p>
+          </article>
+          <article class="card">
+            <h3>Lugares de live!!</h3>
+            <p class="muted">TWITCH E YOUTUBE</p>
+          </article>
+          <article class="card">
+            <h3>HORARIOS</h3>
+            <p class="muted">Segunda, Quarta e Sexta, 14:00 - 18:00</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre">
+      <div class="container">
+        <h2 class="section-title">Sobre o Site</h2>
+        <p class="muted">Para serviços de dev.</p>
+      </div>
+    </section>
+
+
+  <!-- Footer -->
+  <footer id="contato">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">
+          <span>Kyurem</span>
+        </div>
+        <p>© <span id="year"></span> HypexxWar. Todos os direitos reservados.</p>
+      </div>
+      <div class="footer-col">
+        <strong>Links</strong>
+        <div style="display:flex; flex-direction:column; gap:.4rem; margin-top:.6rem;">
+          <a href="#recursos">Recursos</a>
+          <a href="#sobre">Sobre</a>
+          <a href="https://hopp.bio/hypexxwar" target="_blank">contato</a> 
+        </div>
+      </div>
+      <div class="footer-col">
+        <strong>Social</strong>
+        <div style="display:flex; flex-direction:column; gap:.4rem; margin-top:.6rem;">
+          <a href="https://www.instagram.com/hypexx_war_ofc" target="_blank">📷 Instagram</a>
+          <a href="https://www.tiktok.com/@hypexx_war_ofc" target="_blank">🎵 TikTok</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Atualiza ano automaticamente
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menu mobile toggle
+    const btnMenu = document.getElementById('btnMenu');
+    const menu = document.getElementById('menu');
+    btnMenu?.addEventListener('click', () => {
+      const aberto = menu.classList.toggle('open');
+      btnMenu.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    });
+
+    // Alternância simples de tema via classe no <html>
+    const toggleTheme = document.getElementById('toggleTheme');
+    const html = document.documentElement;
+    const THEME_KEY = 'pref-theme';
+
+    function applySavedTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (!saved) return;
+      html.dataset.theme = saved; // 'light' ou 'dark'
+      if (saved === 'light') {
+        // Força variáveis "claras"
+        document.documentElement.style.setProperty('--bg', '#f7f9fc');
+        document.documentElement.style.setProperty('--surface', '#ffffff');
+        document.documentElement.style.setProperty('--text', '#111827');
+        document.documentElement.style.setProperty('--muted', '#5b6576');
+        document.documentElement.style.setProperty('--border', '#e5e7eb');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(17,24,39,.08)');
+      } else {
+        // Volta para o tema "escuro" padrão
+        document.documentElement.style.setProperty('--bg', '#0b0c10');
+        document.documentElement.style.setProperty('--surface', '#15171c');
+        document.documentElement.style.setProperty('--text', '#e9eef4');
+        document.documentElement.style.setProperty('--muted', '#a7b0bf');
+        document.documentElement.style.setProperty('--border', '#232733');
+        document.documentElement.style.setProperty('--shadow', '0 10px 30px rgba(0,0,0,.25)');
+      }
+    }
+
+    applySavedTheme();
+
+    toggleTheme?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const current = html.dataset.theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem(THEME_KEY, current);
+      applySavedTheme();
+    });
+  </script>
+</body>
+</html>
